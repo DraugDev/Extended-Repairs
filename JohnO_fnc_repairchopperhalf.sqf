@@ -17,7 +17,10 @@ _vehicle = _this select 0;
 };*/
 if (vehicle player isEqualTo _vehicle) exitWith 
 {
-	["RepairFailedWarning", ["Are you serious?"]] call ExileClient_gui_notification_event_addNotification;
+	[
+	"InfoTitleAndText", 
+	["No..", "Are you serious?"]
+] call ExileClient_gui_toaster_addTemplateToast;
 };
 _availableHitpoints = (getAllHitPointsDamage _vehicle) select 0;
 {
@@ -30,11 +33,17 @@ forEach _availableHitpoints;
 
 if (isNil "_fixable") exitWith 
 {
-	["RepairFailedWarning", ["This vehicle already looks fine."]] call ExileClient_gui_notification_event_addNotification;
+	[
+		"InfoTitleAndText", 
+		["Repair Info", "This vehicle is already fully repaired"]
+	] call ExileClient_gui_toaster_addTemplateToast;
 }; 
 if (!local _vehicle) then
 {
-	["RepairFailedWarning", ["Please get in as driver/pilot first."]] call ExileClient_gui_notification_event_addNotification;
+	[
+		"InfoTitleAndText", 
+		["Repair Info", "Get in the driver seat first"]
+	] call ExileClient_gui_toaster_addTemplateToast;
 }
 else 
 {
@@ -71,44 +80,35 @@ else
 				}
 				else
 				{
-					["Whoops",["You need Junkmetal to do that"]] call ExileClient_gui_notification_event_addNotification;
+					[
+						"InfoTitleAndText", 
+						["Repair Info", "You need junkmetal to do that"]
+					] call ExileClient_gui_toaster_addTemplateToast;
 				};
 			}
 			else 
 			{
-				["RepairFailedWarning", ["You need duct tape to do that"]] call ExileClient_gui_notification_event_addNotification;
+				[
+					"InfoTitleAndText", 
+					["Repair Info", "You need duct tape to do that"]
+				] call ExileClient_gui_toaster_addTemplateToast;
 			};
 		}
 		else
 		{
-			["RepairFailedWarning", ["You need a wrench"]] call ExileClient_gui_notification_event_addNotification;
+			[
+				"InfoTitleAndText", 
+				["Repair Info", "You need a wrench"]
+			] call ExileClient_gui_toaster_addTemplateToast;
 		};	
 	}
 	else
 	{
-		["RepairFailedWarning", ["You need a toolbox"]] call ExileClient_gui_notification_event_addNotification;
+		[
+			"InfoTitleAndText", 
+			["Repair Info", "You need a tool box"]
+		] call ExileClient_gui_toaster_addTemplateToast;
 	};
 	
 };
 true
-
-/*
-_availableHitpoints = (getAllHitPointsDamage bob) select 0;
-
-_repairable = [];
-if (_vehicle isKindOf "car") then
-{	
-	_wheels = ["HitLF2Wheel","HitLFWheel","HitRFWheel","HitRF2Wheel"];
-	_repairable = _availableHitpoints - _wheels;
-};
-{
-bob setHitPointDamage 0;
-}	forEach _repairable;
-
-
-					if (_vehicle isKindOf "air") then
-					{	
-						{
-							_vehicle setHitPointDamage [_x,0];
-						}	forEach _repairable;
-					}

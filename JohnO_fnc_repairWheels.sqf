@@ -17,7 +17,10 @@ _vehicle = _this select 0;
 };*/
 if (vehicle player isEqualTo _vehicle) exitWith 
 {
-	["RepairFailedWarning", ["Are you serious?"]] call ExileClient_gui_notification_event_addNotification;
+	[
+		"InfoTitleAndText", 
+		["Repair Info", "Are you serious?"]
+	] call ExileClient_gui_toaster_addTemplateToast;
 };
 _availableHitpoints = (getAllHitPointsDamage _vehicle) select 0;
 {
@@ -44,11 +47,17 @@ _wheelToRepair = (_broken select 0) select 1;
 
 if (_broken isEqualTo []) exitWith
 {
-	["RepairFailedWarning", ["The wheels do not need repair"]] call ExileClient_gui_notification_event_addNotification;
+	[
+		"InfoTitleAndText", 
+		["Repair Info", "The wheels do not need repair"]
+	] call ExileClient_gui_toaster_addTemplateToast;
 };
 if (!local _vehicle) then
 {
-	["RepairFailedWarning", ["Please get in as driver/pilot first."]] call ExileClient_gui_notification_event_addNotification;
+	[
+		"InfoTitleAndText", 
+		["Repair Info", "Get in the drivers seat first"]
+	] call ExileClient_gui_toaster_addTemplateToast;
 }
 else 
 {
@@ -69,53 +78,28 @@ else
 			}
 			else
 			{
-				["RepairFailedWarning", ["You need a wheel"]] call ExileClient_gui_notification_event_addNotification;
+				[
+					"InfoTitleAndText", 
+					["Repair Info", "You need a wheel"]
+				] call ExileClient_gui_toaster_addTemplateToast;
 			};	
 				
 		}
 		else
 		{
-			["RepairFailedWarning", ["You need a wrench"]] call ExileClient_gui_notification_event_addNotification;
+			[
+				"InfoTitleAndText", 
+				["Repair Info", "You need a wrench"]
+			] call ExileClient_gui_toaster_addTemplateToast;
 		};	
 	}
 	else
 	{
-		["RepairFailedWarning", ["You need a toolbox"]] call ExileClient_gui_notification_event_addNotification;
+		[
+			"InfoTitleAndText", 
+			["Repair Info", "You need a tool box"]
+		] call ExileClient_gui_toaster_addTemplateToast;
 	};
 	
 };
 true
-/*
-_wheels = ["HitLF2Wheel","HitLFWheel","HitRFWheel","HitRF2Wheel"]; 
-_broken = [];
-{
-	if ((bob getHitPointDamage _x) > 0) then
-	{	
-		_damage = bob getHitPointDamage _x;
-		_broken = _broken + [[_damage,_x]]; 
-	};
-} forEach _wheels;
-
-_broken sort false;
-
-_wheelToRepair = (_broken select 0) select 1;
-bob setHitPointDamage [_wheelToRepair,0];
-
-bob setHitPointDamage 
-
-hint str _broken;
-
-hint str _broken
-
-_damagedWheels = [];
-
-{
-	if (bob getHitPointDamage _x) then
-	
-	
-} forEach _broken;
-
-_damagedWheels sort false;
-
-hint str _damagedWheels;
-_wheels = ["HitLF2Wheel","HitLFWheel","HitRFWheel","HitRF2Wheel"];   _broken = [];  {   if ((bob getHitPointDamage _x) > 0) then   {     _damage = bob getHitPointDamage _x;    _broken = _broken + [[_x,_damage]];    };  } forEach _wheels;  hint str _broken
